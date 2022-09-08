@@ -1,6 +1,6 @@
 /**
 * Returns a random RPS choice.
-* @return {String}      computer choice of 'Rock', 'Paper', or 'Scissors'
+* @return {string}      computer choice of 'Rock', 'Paper', or 'Scissors'
 */
 function getComputerChoice(){
     // Choose a random number between 0 and 2
@@ -15,4 +15,19 @@ function getComputerChoice(){
         return 'Paper';
     }
     return 'Scissors';
+}
+
+/**
+ * Plays a single round of RPS.
+ * @param {string} playerSelection      Player's RPS choice
+ * @param {string} computerSelection    Computer's RPS choice
+ * @return {string} RPS round result statement
+ */
+function playRound(playerSelection, computerSelection){
+    // Check playerSelection and accept case-insensitive
+    // Make a variable, result, to track if a loss/draw/win
+    // For player R, check CPU RPS, update result
+    // For player P, check CPU RPS, update result
+    // For player S, check CPU RPS, update result
+    // Write message based on result, with player and cpu choices
 }
