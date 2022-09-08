@@ -81,6 +81,22 @@ function getRoundResult(playerSelection, computerSelection){
     return 0;
 }
 
+/**
+ * Plays a 5 round game of RPS, keeps score, and reports a winner or loser at
+ * the end of the game.
+ * 
+ */
+function game(){
+    // Score counts for player and computer
+    // for loop 5 times:
+        // prompt for RPS choice; ensure valid input.
+        // use getComputerChoice for computerSelection
+        // playRound
+        // update score for player or computer
+    // Report winner/loser
+
+}
+
 // Testing
 const playerSelection = "rock";
 const computerSelection = getComputerChoice();
