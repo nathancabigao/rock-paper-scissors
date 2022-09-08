@@ -82,22 +82,64 @@ function getRoundResult(playerSelection, computerSelection){
 }
 
 /**
+ * Prompts the player for their RPS choice, formats it for proper use, validates
+ * that it is an RPS choice, and prompts again if invalid.
+ * 
+ * @return {string} The valid and formatted RPS choice.
+ */
+function promptPlayerChoice(){
+    let choice = '';
+    let valid = 0;
+
+    while(valid != 1){
+        choice = prompt("Rock, Paper, or Scissors: ");
+        choice = capitalizeFirstLetter(choice);
+        
+        if(choice === 'Rock' || choice === 'Paper' || choice === 'Scissors'){
+            valid = 1;
+        }
+    }
+    return choice;
+}
+
+/**
  * Plays a 5 round game of RPS, keeps score, and reports a winner or loser at
  * the end of the game.
  * 
+ * @return {string} Final score message
  */
 function game(){
     // Score counts for player and computer
-    // for loop 5 times:
-        // prompt for RPS choice; ensure valid input.
-        // use getComputerChoice for computerSelection
-        // playRound
-        // update score for player or computer
-    // Report winner/loser
+    let playerScore = 0, computerScore = 0;
 
+    // 5 Rounds
+    for(let i = 0; i < 5; i++){
+        // prompt for RPS choice; ensure valid input.
+        let playerSelection = promptPlayerChoice();
+        // get the computer choice, and the result
+        let computerSelection = getComputerChoice();
+        let result = getRoundResult(playerSelection, computerSelection);
+        // Log the round result
+        console.log("Round "+ (i+1) + ": " + playRound(playerSelection, computerSelection));
+
+        // update score for player or computer
+        if(result === 1){
+            playerScore += 1;
+        }
+        else if (result === 2){
+            computerScore += 1;
+        }
+    }
+        
+    // Report winner/loser based on score
+    if (playerScore > computerScore){
+        return `Final: You Win! You: ${playerScore}, Computer: ${computerScore}`;
+    }
+    else if (playerScore < computerScore){
+        return `Final: You Lose. You: ${playerScore}, Computer: ${computerScore}`;
+    }
+    return `Final: Tie! You: ${playerScore}, Computer: ${computerScore}`;
 }
 
-// Testing
-const playerSelection = "rock";
-const computerSelection = getComputerChoice();
-console.log(playRound(playerSelection, computerSelection));
+// Play the game and log the final message.
+console.log(game());
