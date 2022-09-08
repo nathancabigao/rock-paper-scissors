@@ -24,10 +24,64 @@ function getComputerChoice(){
  * @return {string} RPS round result statement
  */
 function playRound(playerSelection, computerSelection){
-    // Check playerSelection and accept case-insensitive
+    // Make playerSelection case-insensitive by capitalizing first letter and
+    // making the rest lower case
+    const playerRPS = capitalizeFirstLetter(playerSelection);
+
     // Make a variable, result, to track if a loss/draw/win
-    // For player R, check CPU RPS, update result
-    // For player P, check CPU RPS, update result
-    // For player S, check CPU RPS, update result
+    let result = 0;
+
+    // Determine winner and update result
+    result = getRoundResult(playerRPS, computerSelection);
+
     // Write message based on result, with player and cpu choices
+    if (result === 0){
+        return `Draw! ${playerRPS} ties with ${computerSelection}`;
+    }
+    else if (result === 1){
+        return `You Win! ${playerRPS} beats ${computerSelection}`;
+    }
+    else {
+        return `You Lose! ${computerSelection} beats ${playerRPS}`;
+    }
 }
+
+/**
+ * Converts a string to capital first letter and lower case remaining
+ * @param {string} string       string to capitalize first letter
+ * @return {string} Capitalized first letter string with lower case remaining
+ */
+function capitalizeFirstLetter(string){
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+}
+
+/**
+ * Given properly formatted RPS choice strings, Determines the result of an RPS
+ * game and returns 0 if a draw, 1 if the player wins, and 2 if player loses.
+ * @param {string} playerSelection      Player's RPS choice
+ * @param {string} computerSelection    Computer's RPS choice
+ * @return {Number} game result
+ */
+function getRoundResult(playerSelection, computerSelection){
+    // Case 1: Player wins, return 1
+    if (playerSelection === 'Rock' && computerSelection === 'Scissors' || 
+        playerSelection === 'Paper' && computerSelection === 'Rock' ||
+        playerSelection === 'Scissors' && computerSelection === 'Paper')
+    {
+        return 1;
+    }
+    // Case 2: Player loses, return 2
+    else if (playerSelection === 'Rock' && computerSelection === 'Paper' ||
+             playerSelection === 'Paper' && computerSelection === 'Scissors' ||
+             playerSelection === 'Scissors' && computerSelection === 'Rock')
+    {
+        return 2;
+    }
+    // Case 3: Draw, return 0
+    return 0;
+}
+
+// Testing
+const playerSelection = "rock";
+const computerSelection = getComputerChoice();
+console.log(playRound(playerSelection, computerSelection));
