@@ -1,3 +1,7 @@
+// Global Variables
+let playerScore = 0, computerScore = 0, roundNumber = 1;
+let playerSelection = '', computerSelection = ''; 
+
 /**
 * Returns a random RPS choice.
 * @return {string}      computer choice of 'Rock', 'Paper', or 'Scissors'
@@ -110,10 +114,11 @@ function promptPlayerChoice(){
  */
 function game(){
     // Score counts for player and computer
-    let playerScore = 0, computerScore = 0;
+    
 
-    // 5 Rounds
-    for(let i = 0; i < 5; i++){
+    // Until player or computer reaches a score of 5.
+    // Clicking a button starts a round, gets the textContent of button, gets a computer selection, gets result, etc.
+    while (playerScore < 5 && computerScore < 5) {
         // prompt for RPS choice; ensure valid input.
         let playerSelection = promptPlayerChoice();
         // get the computer choice, and the result
@@ -129,6 +134,7 @@ function game(){
         else if (result === 2){
             computerScore += 1;
         }
+        i++;
     }
         
     // Report winner/loser based on score
@@ -141,5 +147,78 @@ function game(){
     return `Final: Tie! You: ${playerScore}, Computer: ${computerScore}`;
 }
 
-// Play the game and log the final message.
-console.log(game());
+/**
+ * Updates the score of the game, given the result of a round. If a draw, then
+ * no changes to the scores are made.
+ * 
+ * @param {Number} result   The result of the round played.
+ */
+function updateScore(result){
+    if(result === 1){
+        playerScore += 1;
+    }
+    else if (result === 2){
+        computerScore += 1;
+    }
+}
+
+/**
+ * Returns a message displaying the score at the current round.
+ */
+function getScore(){
+    return `Round ${roundNumber}: You - ${playerScore}, Computer - ${computerScore}`;
+}
+
+/**
+ * Checks if there is a winner based on the game score, and displays the winner
+ * if there is one. Calls newGame() if there is a winner.
+ */
+function checkWinner(){
+    if (playerScore === 5){
+        console.log(`Final: You Win! You: ${playerScore}, Computer: ${computerScore}`);
+        newGame();
+    }
+    else if (computerScore === 5){
+        console.log(`Final: You Lose. You: ${playerScore}, Computer: ${computerScore}`);
+        newGame();
+    }
+}
+
+/**
+ * Resets the scores and roundNumber to start a new game after a winner is
+ * decided.
+ */
+function newGame(){
+    playerScore = 0;
+    computerScore = 0;
+    roundNumber = 1;
+    playerSelection = '', computerSelection = ''; 
+}
+
+// get buttons nodelist
+const buttons = document.querySelectorAll(".rps-btn");
+// for each, set up a listener which calls playRound
+buttons.forEach((button) => {
+    button.addEventListener('click', function(e) {
+        playerSelection = e.target.textContent;
+        computerSelection = getComputerChoice();
+
+        let result = getRoundResult(playerSelection, computerSelection);
+
+        // call playRound and log round winner
+        console.log("Round "+ roundNumber + ": " + playRound(playerSelection, computerSelection));
+
+        // update scores based on result
+        updateScore(result);
+
+        // print scores
+        console.log(getScore());
+
+        roundNumber++;
+
+        // check if there is a winner
+        checkWinner();
+    });
+});
+
+//console.log(game());
