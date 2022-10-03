@@ -107,47 +107,6 @@ function promptPlayerChoice(){
 }
 
 /**
- * Plays a 5 round game of RPS, keeps score, and reports a winner or loser at
- * the end of the game.
- * 
- * @return {string} Final score message
- */
-function game(){
-    // Score counts for player and computer
-    
-
-    // Until player or computer reaches a score of 5.
-    // Clicking a button starts a round, gets the textContent of button, gets a computer selection, gets result, etc.
-    while (playerScore < 5 && computerScore < 5) {
-        // prompt for RPS choice; ensure valid input.
-        let playerSelection = promptPlayerChoice();
-        // get the computer choice, and the result
-        let computerSelection = getComputerChoice();
-        let result = getRoundResult(playerSelection, computerSelection);
-        // Log the round result
-        console.log("Round "+ (i+1) + ": " + playRound(playerSelection, computerSelection));
-
-        // update score for player or computer
-        if(result === 1){
-            playerScore += 1;
-        }
-        else if (result === 2){
-            computerScore += 1;
-        }
-        i++;
-    }
-        
-    // Report winner/loser based on score
-    if (playerScore > computerScore){
-        return `Final: You Win! You: ${playerScore}, Computer: ${computerScore}`;
-    }
-    else if (playerScore < computerScore){
-        return `Final: You Lose. You: ${playerScore}, Computer: ${computerScore}`;
-    }
-    return `Final: Tie! You: ${playerScore}, Computer: ${computerScore}`;
-}
-
-/**
  * Updates the score of the game, given the result of a round. If a draw, then
  * no changes to the scores are made.
  * 
@@ -200,7 +159,7 @@ const buttons = document.querySelectorAll(".rps-btn");
 // for each, set up a listener which calls playRound
 buttons.forEach((button) => {
     button.addEventListener('click', function(e) {
-        playerSelection = e.target.textContent;
+        playerSelection = capitalizeFirstLetter(e.target.id);
         computerSelection = getComputerChoice();
 
         let result = getRoundResult(playerSelection, computerSelection);
