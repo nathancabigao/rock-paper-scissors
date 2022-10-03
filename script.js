@@ -9,7 +9,6 @@ let playerSelection = '', computerSelection = '';
 function getComputerChoice(){
     // Choose a random number between 0 and 2
     let randomNum = Math.floor(Math.random() * 3);
-    //console.log(randomNum);
 
     // return R, P, or S based on randomNum being 0, 1, or 2 respectively
     if (randomNum === 0){
@@ -28,11 +27,10 @@ function getComputerChoice(){
  * @return {string} RPS round result statement
  */
 function playRound(playerSelection, computerSelection){
-    // Make playerSelection case-insensitive by capitalizing first letter and
-    // making the rest lower case
+    // Make playerSelection case-insensitive
     const playerRPS = capitalizeFirstLetter(playerSelection);
 
-    // Make a variable, result, to track if a loss/draw/win
+    // Make a variable to track if a loss/draw/win
     let result = 0;
 
     // Determine winner and update result
@@ -87,7 +85,7 @@ function getRoundResult(playerSelection, computerSelection){
 
 /**
  * Updates the score of the game, given the result of a round. If a draw, then
- * no changes to the scores are made.
+ * no changes to the scores are made. Calls updateScoreDOM to update the DOM.
  * 
  * @param {Number} result   The result of the round played.
  */
@@ -98,13 +96,15 @@ function updateScore(result){
     else if (result === 2){
         computerScore += 1;
     }
+    updateScoreDOM();
 }
 
 /**
- * Returns a message displaying the score at the current round.
+ * Updates the score displayed on the DOM.
  */
-function getScore(){
-    return `Round ${roundNumber}: You - ${playerScore}, Computer - ${computerScore}`;
+function updateScoreDOM(){
+    scoreHuman.textContent = "You: " + playerScore;
+    scoreComputer.textContent = "Computer: " + computerScore;
 }
 
 /**
@@ -113,12 +113,10 @@ function getScore(){
  */
 function checkWinner(){
     if (playerScore === 5){
-        console.log(`Final: You Win! You: ${playerScore}, Computer: ${computerScore}`);
         resultText.textContent = `You Win!`;
         newGame();
     }
     else if (computerScore === 5){
-        console.log(`Final: You Lose. You: ${playerScore}, Computer: ${computerScore}`);
         resultText.textContent = `You Lose.`;
         newGame();
     }
@@ -147,21 +145,13 @@ buttons.forEach((button) => {
     button.addEventListener('click', function(e) {
         playerSelection = capitalizeFirstLetter(e.target.id);
         computerSelection = getComputerChoice();
-
         let result = getRoundResult(playerSelection, computerSelection);
 
         // call playRound and log round winner
-        console.log("Round "+ roundNumber + ": " + playRound(playerSelection, computerSelection));
         resultText.textContent = "Round " + roundNumber + ": " + playRound(playerSelection, computerSelection);
 
         // update scores based on result
         updateScore(result);
-
-        // print scores
-        console.log(getScore());
-        scoreHuman.textContent = "You: " + playerScore;
-        scoreComputer.textContent = "Computer: " + computerScore;
-
         roundNumber++;
 
         // check if there is a winner
