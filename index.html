@@ -5,14 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./script.js" async></script>
+    <link rel="stylesheet" href="./style.css">
     <title>Rock Paper Scissors</title>
 </head>
 <body>
-    <h1>Rock, Paper, Scissors!</h1>
+    <div class="container"><h1>Rock, Paper, Scissors!</h1></div>
     <div class="results">
         <div class="result-text">Choose Rock, Paper, or Scissors to begin!</div>
-        <div class="score" id="score-human">You: 0</div>
-        <div class="score" id="score-computer">Computer: 0</div>
+        <div class="score">
+            <div id="score-human">You: 0</div>
+            <div id="score-computer">Computer: 0</div>
+        </div>
     </div>
     <div class="buttons">
         <button class="rps-btn" id="rock">Rock</button>
