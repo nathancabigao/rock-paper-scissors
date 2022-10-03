@@ -66,3 +66,21 @@ h1 {
 .rps-btn:active {
     background-color:#999999;
 }
+
+@media only screen and (max-width: 600px) {
+    .result-text {
+        margin-left: 8px;
+        margin-right: 8px;
+        font-size: 32px;
+    }
+    .score {
+        flex-direction: column;
+        gap: .2em;
+        align-items: center;
+    }
+    .buttons {
+        flex-direction: column;
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+} 
