@@ -86,27 +86,6 @@ function getRoundResult(playerSelection, computerSelection){
 }
 
 /**
- * Prompts the player for their RPS choice, formats it for proper use, validates
- * that it is an RPS choice, and prompts again if invalid.
- * 
- * @return {string} The valid and formatted RPS choice.
- */
-function promptPlayerChoice(){
-    let choice = '';
-    let valid = 0;
-
-    while(valid != 1){
-        choice = prompt("Rock, Paper, or Scissors: ");
-        choice = capitalizeFirstLetter(choice);
-        
-        if(choice === 'Rock' || choice === 'Paper' || choice === 'Scissors'){
-            valid = 1;
-        }
-    }
-    return choice;
-}
-
-/**
  * Updates the score of the game, given the result of a round. If a draw, then
  * no changes to the scores are made.
  * 
