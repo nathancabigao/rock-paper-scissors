@@ -114,10 +114,12 @@ function getScore(){
 function checkWinner(){
     if (playerScore === 5){
         console.log(`Final: You Win! You: ${playerScore}, Computer: ${computerScore}`);
+        resultText.textContent = `You Win!`;
         newGame();
     }
     else if (computerScore === 5){
         console.log(`Final: You Lose. You: ${playerScore}, Computer: ${computerScore}`);
+        resultText.textContent = `You Lose.`;
         newGame();
     }
 }
@@ -135,6 +137,11 @@ function newGame(){
 
 // get buttons nodelist
 const buttons = document.querySelectorAll(".rps-btn");
+// get results DOM elements
+const resultText = document.querySelector(".result-text");
+const scoreHuman = document.querySelector("#score-human");
+const scoreComputer = document.querySelector("#score-computer");
+
 // for each, set up a listener which calls playRound
 buttons.forEach((button) => {
     button.addEventListener('click', function(e) {
@@ -145,12 +152,15 @@ buttons.forEach((button) => {
 
         // call playRound and log round winner
         console.log("Round "+ roundNumber + ": " + playRound(playerSelection, computerSelection));
+        resultText.textContent = "Round " + roundNumber + ": " + playRound(playerSelection, computerSelection);
 
         // update scores based on result
         updateScore(result);
 
         // print scores
         console.log(getScore());
+        scoreHuman.textContent = "You: " + playerScore;
+        scoreComputer.textContent = "Computer: " + computerScore;
 
         roundNumber++;
 
@@ -158,5 +168,3 @@ buttons.forEach((button) => {
         checkWinner();
     });
 });
-
-//console.log(game());
